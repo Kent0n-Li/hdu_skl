@@ -62,8 +62,35 @@ public class Ocr1 extends Thread{
 	String[] tokens=new String[1000];
 
 	private static Lock lock= new ReentrantLock();
+	
+	
+	public static void main(String[] args) throws Exception {
 
 
+		//getTokensToTxt("数字杭电id","数字杭电密码");
+	
+		for (int i=0;i<ThreadNum;i++){
+			String ThNum=Integer.toString(i);
+			Ocr1 threadRuning = new Ocr1(ThNum);
+			threadRuning.start();
+		}
+
+		//new File("img/" + clazz).mkdirs();
+		//new File("train/" + clazz).mkdirs();
+		//new File("result/" + clazz).mkdirs();
+		// 先删除result/ocr目录，开始识别
+
+		// scaleTraindata(clazz, whiteThreshold);
+		// svm_train train = new svm_train();
+		// train.run(new String[] { new File("train/" + clazz +
+		// "/data.txt").getAbsolutePath(),
+		// new File("train/" + clazz + "/data.txt.model").getAbsolutePath() });
+	}
+	
+	
+	
+	
+	
 	public  String gettoken(String url) throws IOException {
 		final HttpClient httpClient = HttpClientBuilder.create().build();
 
@@ -712,28 +739,7 @@ public class Ocr1 extends Thread{
 
 
 
-	public static void main(String[] args) throws Exception {
 
-
-		//getTokensToTxt("18051923","lipeiyuan12138");
-		//getTokensFormTxt();
-		for (int i=0;i<ThreadNum;i++){
-			String ThNum=Integer.toString(i);
-			Ocr1 threadRuning = new Ocr1(ThNum);
-			threadRuning.start();
-		}
-
-		//new File("img/" + clazz).mkdirs();
-		//new File("train/" + clazz).mkdirs();
-		//new File("result/" + clazz).mkdirs();
-		// 先删除result/ocr目录，开始识别
-
-		// scaleTraindata(clazz, whiteThreshold);
-		// svm_train train = new svm_train();
-		// train.run(new String[] { new File("train/" + clazz +
-		// "/data.txt").getAbsolutePath(),
-		// new File("train/" + clazz + "/data.txt.model").getAbsolutePath() });
-	}
 
 	/**
 	 * 根据String型时间，获取long型时间，单位毫秒
